@@ -1,2 +1,3 @@
 *.envOpencorporates/credentials.json
 *.env
+*LLMWithWebData/temp.txt
