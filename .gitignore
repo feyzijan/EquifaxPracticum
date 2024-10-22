@@ -1,3 +1,5 @@
 *.envOpencorporates/credentials.json
 *.env
-*LLMWithWebData/temp.txt
+LLMWithWebData/temp.txt
+LLMWithWebData/firms_search_results.db
+LLMWithWebData/firms_web_search_results.db
