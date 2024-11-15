@@ -1,0 +1,11 @@
+Firm_Name,Establishment Year,Registered_Address,Registered_Address,Number of Employees,Revenue_Size,NAICS_Code,NAICS_Code,SIC_Code,Website,Status,Error
+Traction Power Systems ,1992,8550 MOSLEY HOUSTON 77075 TX United States,,1-10,10000-100000,335312,,3621,No website found.,Dissolved,
+A Day To Remember ,,,,,,,,,,,Expecting value: line 1 column 1 (char 0)
+Malco A Nevada ,,,,,,,,,,,400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBMFgWbKAGmmpg5nrPMvlTHL-seGE4qSCI
+Bishops Gate Residential Mortgage Trust,,,"300 Delaware Avenue 9th Floor, Wilmington, DE 19801",,,,522110,,https://www.bloomberg.com/profile/company/9858Z:US,,
+Jcresci Farms ,,,,,,,,,,,400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBMFgWbKAGmmpg5nrPMvlTHL-seGE4qSCI
+1 Man Army Gourmet Foods ,,,,,,,,,,,Extra data: line 60 column 1 (char 1440)
+10Code ,2010,"201 Slate Dr, Ste 6, Bismarck, ND 58503-6181",,11-50,1-10 Million,561612,,138,https://10codellc.com/,Active,
+Dat Hit Da Spot ,2023,"6277 Marbut Farms Trl, Lithonia, GA 30058",,1-10,10000-100000,722511,,5812,No website found.,Active/Owes Current Year Ar,
+Leslie A Feast Construction Company ,,,,,,,,,,,429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBMFgWbKAGmmpg5nrPMvlTHL-seGE4qSCI
+R Rocky Ranch ,2013,"C/O Roy Baker, 257 Popple Hill Drive, Berkshire, New York 13736",,1-10,10000-100000,111419,,291,No website found.,Active,
