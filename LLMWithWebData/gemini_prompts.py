@@ -12,6 +12,11 @@ Simply write the answers in order separated by '*-*', do not repeat the question
 My questions are as follows: """
 
 
+context_single_field_v1 = """
+I will ask you a questions about a company. Please provide the required information in a single answer,
+do not repeat the questions or the field names. My question is as follows: """
+
+
 field_to_query_v1 = {
         "Registered_Address": "Tell me the Registered Adress for the firm named {firm_name}. Your answer should consist of the street address, city, state, country, and postal code.",
         "CEO": "Tell me the name and surname of the CEO for the firm named {firm_name}. Your answer should be in the format 'Name Surname'",
