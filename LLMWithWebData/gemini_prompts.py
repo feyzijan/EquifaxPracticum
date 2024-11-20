@@ -13,7 +13,7 @@ My questions are as follows: """
 
 
 context_single_field_v1 = """
-I will ask you a questions about a company. Please provide the required information in a single answer,
+I will ask you a question about a company. Please provide the required information in a single answer,
 do not repeat the questions or the field names. My question is as follows: """
 
 
