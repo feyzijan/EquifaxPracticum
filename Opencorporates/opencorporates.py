@@ -21,15 +21,13 @@ us_states = [
     "us_sd", "us_tn", "us_tx", "us_ut", "us_vt", "us_va", "us_wa", "us_wv", "us_wi", "us_wy"
 ]
 
-# Function to fetch companies for a specific state with pagination
-def fetch_companies_for_state(state_code, target_count=200):
+def fetch_companies_for_state(state_code, target_count=60):
     companies = []
     page = 1
     while len(companies) < target_count:
         params = {
             "q": "*",  # Search for all companies
             "jurisdiction_code": state_code,  # Search within the given state
-            #"current_status": "Active",  # Filter for active companies
             "api_token": api_key,  # Use API key directly
             "per_page": 100,  # Fetch 100 companies per page
             "page": page
@@ -44,22 +42,25 @@ def fetch_companies_for_state(state_code, target_count=200):
         if not new_companies:
             break  # Break the loop if no more companies are found
         
-        companies.extend(new_companies)
+        # Filter companies based on incorporation_date
+        for company in new_companies:
+            incorporation_date = company['company'].get('incorporation_date')
+            if incorporation_date and incorporation_date.startswith("2024"):
+                companies.append(company)
+                if len(companies) >= target_count:
+                    break
+        
         page += 1
         
-        # If fewer than the requested amount is found, no need to keep going
-        if len(new_companies) < 100:
-            break
-
     return companies[:target_count]  # Return only up to the target number of companies
 
 # Create an empty list to hold all companies data
 all_companies = []
 
-# Loop through each state and fetch 200 companies
+# Loop through each state and fetch 60 companies established in 2024
 for state_code in us_states:
     print(f"Fetching companies for {state_code}...")
-    companies = fetch_companies_for_state(state_code)
+    companies = fetch_companies_for_state(state_code, target_count=60)
     print(f"Fetched {len(companies)} companies for {state_code}.")
     all_companies.extend(companies)
     
@@ -96,40 +97,16 @@ df = pd.DataFrame(formatted_data)
 # Replace NaN values with empty strings
 df.fillna('', inplace=True)
 
-# Define the scope
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+# Sort the DataFrame by 'industry_codes' while keeping all rows
+df_sorted = df.sort_values(by='industry_codes', ascending=True, na_position='last')
 
-# Add credentials to the service account (You need to create a credentials JSON from Google Cloud)
-creds = ServiceAccountCredentials.from_json_keyfile_name('/Users/taeeunkwon/Desktop/MSA/EquifaxPracticum/Opencorporates/credentials.json', scope)
-client = gspread.authorize(creds)
+# Save the sorted DataFrame locally as a CSV file
+df_sorted.to_csv("../EquifaxPracticum/Opencorporates/equifax_project_data_sorted.csv", index=False)
+print("Full data saved to equifax_project_data.csv")
 
-# Create a Google Sheet
-sheet = client.create('Equifax Project Data')
-
-# Share the Google Sheet with your personal Google account
-sheet.share('tekwon2012@gmail.com', perm_type='user', role='writer')
-
-# Select first sheet (default worksheet) and add the full table
-worksheet1 = sheet.get_worksheet(0)
-
-# Convert your DataFrame to a list of lists
-data = df.values.tolist()
-
-# Update the first sheet with the full data
-worksheet1.update([df.columns.values.tolist()] + data)
-
-# Now, create a new worksheet (tab) without the 'name' column
+# Create a DataFrame without the 'name' column
 df_without_name = df.drop(columns=['name'])
 
-# Add a new worksheet/tab (Google Sheets allows a maximum of 1000 rows by default)
-worksheet2 = sheet.add_worksheet(title='Data without Name', rows=len(df_without_name)+1, cols=len(df_without_name.columns))
-
-# Convert the DataFrame without 'name' column to a list of lists
-data_without_name = df_without_name.values.tolist()
-
-# Update the new worksheet with the data excluding the 'name' column
-worksheet2.update([df_without_name.columns.values.tolist()] + data_without_name)
-
-# Print the link to the newly created Google Sheet
-spreadsheet_url = f"https://docs.google.com/spreadsheets/d/{sheet.id}/edit"
-print(f"Spreadsheet successfully created! You can view it here: {spreadsheet_url}")
+# Save the DataFrame without 'name' locally as another CSV file
+df_without_name.to_csv("../EquifaxPracticum/Opencorporates/Eequifax_project_data_without_name_.csv", index=False)
+print("Data without 'name' column saved to equifax_project_data_without_name.csv")
